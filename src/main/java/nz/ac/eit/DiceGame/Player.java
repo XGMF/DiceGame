@@ -7,18 +7,13 @@ public class Player {
 	    private int runningTotal;
 	    private boolean hold =false;
 
-	public boolean getHold() {
-		return hold;
-	}
 
-	public void setHold(boolean hold) {
-		this.hold = hold;
-	}
 
 	public Player(int id, String name) {
 	        this.id = id;
 	        this.name = name;
 	        this.runningTotal=0;
+	        this.hold=false;
 	    }
 	    
 	    /**
@@ -49,5 +44,15 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+
+	public boolean getHold() {
+		return hold;
+	}
+
+	public void setHold(boolean hold) {
+		this.hold = hold;
 	}
 }

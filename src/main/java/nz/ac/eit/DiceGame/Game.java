@@ -6,10 +6,11 @@ class Game {
 
     Player player1;
     Player player2;
-    Dice dice, dice1;
+    Player currentPlayer;
+    Dice dice;
 
     ////
-    Player currentPlayer;
+    //Player currentPlayer;
 
     Scanner scan = new Scanner(System.in);
     InputCollector collector = new InputCollector();
@@ -17,8 +18,8 @@ class Game {
     InputCollector input = null;
     SupportedInput supportedInput = null;
 
-    private boolean switchPlayer = false;
 
+    private static boolean end =false;
     /**
      * Game object constructor
      */
@@ -34,30 +35,31 @@ class Game {
 
     public void play() {
 
-        Player currentPlayer = player1; // start with this player
 
-        // play dice
+        while (end!=true) {////////////////////////////////////////////////////////////////////
 
-
-        //the limit is 21. IF the value is over 21, fail.
-        while (isUnderGameLimit(currentPlayer.getRunningTotal())) {////////////////////////////////////////////////////////////////////
-
+            //////each dice is rolled and assigned to a variable
             int currentDice1 = Dice.roll();
             int currentDice2 = Dice.roll();
 
-            int aSum = currentPlayer.sum(currentDice1, currentDice2);
-            int aRunningTotal = currentPlayer.runningTotal(aSum);
+            //////both die are summed and a total is given
+            int aSum = player1.sum(currentDice1, currentDice2);
+            int aRunningTotal = player1.runningTotal(aSum);
 
-            System.out.println(currentPlayer.getName());
+            //display the current player, die and sum
+            System.out.println("Player 1: ");
             System.out.print(currentDice1 + " " + currentDice2 + "\n" + aSum + "\n" + "Running Total :" + aRunningTotal);
 
             //checks whether the total is over the ending condition
-            //if it is STOP.
-            System.out.println(isUnderGameLimit(aRunningTotal)+"\n");
+            //if it is STOP. is game under limit includes a condition for closing the app.
+            System.out.println(victoryLimitCheck(aRunningTotal)+"\n");
 
+            //asking the player for input. Input collector and exception class is linked.
             System.out.println("\n" + "Please Roll or Hold (R/H)");
             String inputAsString = scan.nextLine().toUpperCase();
 
+            //Test if the input is supported, if not pass back a message.
+            //Currently close on invalid input. Should loop asking for a valid input.
             try {
                 supportedInput = collector.collectString(inputAsString);
             } catch (StringNotValidInputException lnse) {
@@ -65,24 +67,8 @@ class Game {
                 System.exit(1);
             }
 
-            ;
-
-            if (currentPlayer == player2 && currentPlayer.getRunningTotal() > 14) {
-                ///////hold
-                player2.setHold(true);
-            }
-
-
-            /**
-             * Player check
-             * if the player has chosen to hold, the current player us switched.
-             */
-            if (currentPlayer == player1 && switchPlayer == true) {
-                currentPlayer = player2;
-            } else {
-                currentPlayer = player1;
-            }
-
+            //takes checked string
+            RollOrHold(inputAsString);
 
 
 
@@ -93,30 +79,15 @@ class Game {
      * Checks if the player holds or rolls.
      * only checks one condition at the moment
      */
-    public String RollOrHold(String roll) {
+    public void RollOrHold(String roll) {
 
         //System.out.print(roll);
-
+        //uses string buffer.
         if (roll.contentEquals("H")) {
             System.out.print("The player has chosen to hold.\n " + "It is now the computers turn" + "\n");
-            switchPlayer = true;
-
-            ////TODO computer
-            /*
-
-
-
-            if (currentPlayer.getRunningTotal() < 16) {
-                currentPlayer.setHold(true);
-            }
-            if (player1.getHold() && player2.getHold() == true) {
-                //////////
-                compareScores();
-
-
-            }
-             */
-
+            System.out.println("Hello");// currentPlayer);
+            player1.setHold(true);
+            computerLogic();
             /**
              * If the player holds, it is the computers turn.
              * Vice versa, if its the computers turn and holds
@@ -124,13 +95,12 @@ class Game {
              */
         } else {
             System.out.print("The player has rolled the dice\n");
-            switchPlayer = false;
             /**
              * If the player rolls the dice nothing happens here.
              * Returns to the beginning of the loop
              */
         }
-        return roll;
+        //return roll;
     }
 
     /**
@@ -146,9 +116,9 @@ class Game {
     }
 
     /**
-     * Responsible for checking limit conditions.
+     * Responsible for checking limit conditions. Only once condition checked.
      */
-    public static boolean isUnderGameLimit(int value) {
+    public static boolean victoryLimitCheck(int value) {
 
         if (value > 21) {
             System.out.println("The current total is above 21");
@@ -164,4 +134,76 @@ class Game {
          * if computer's total becomes 9<21
          */
     }
-}
+
+
+     //The player has held, the computer must do something.
+
+    public void computerLogic() {
+       // while(player1.getHold()==true){
+
+            //The dice are rolled
+
+            int target=21;
+            int cpuNumber =7;//an arbitrary number for the cpu do decide when to hold.
+                             //so, the computer will hold when 7 away from 21.
+
+        while(player1.getHold()==true) {
+            int die1 = Dice.roll();
+            int die2 = Dice.roll();
+            System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
+
+            //stuff is calculated
+            int anotherSum = player2.sum(die1, die2);
+            int total2 = player2.runningTotal(anotherSum);
+
+            //the victory condition is checked
+            victoryLimitCheck(total2);
+            System.out.println(player1.getRunningTotal()+" "+total2);
+
+            //if the current total of computer is closer than a certain mnumber
+            if (target - total2 < cpuNumber) {
+                player2.setHold(true);
+                int total1 = player1.getRunningTotal();
+
+                //victoryLimitCheck(total1);//check limit again
+                //System.out.println(total1 + " " + total2);
+                System.out.println(player1.getRunningTotal()+" "+total2);
+                //who is closer to the target.
+                //The closest is the winner
+                if ((target - total1 < target - total2)) {
+
+                    System.out.print("Player 1 wins!");
+                    scan.nextLine();
+                } else {
+                    System.out.println("The computer wins");
+                    System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
+                    System.out.println ("Computer current total:\n"+total2);
+                    scan.nextLine();
+                }
+
+
+            } else {
+                System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
+                System.out.println ("Computer current total:\n"+total2);
+                //do nothing, continue
+            }
+
+            //the computer will stop rolling when within a certain range to the limit//
+            //System.out.println("MOOOOOOOOOOO");
+            //infinite loop, break
+            //System.exit(1);
+//        }
+        }
+
+
+
+
+        }
+
+    }
+
+
+
+
+
+
