@@ -8,7 +8,9 @@ public class Player {
 	    private boolean hold =false;
 
 
-
+    /**
+     * Two players are required to play this game.
+     */
 	public Player(int id, String name) {
 	        this.id = id;
 	        this.name = name;

@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 class Game {
 
+
     Player humanPlayer; //human player
     Player computerPlayer; //computer player
     Dice dice1, dice2; //two dice for the game
 
     private int cpuHoldNumber =7;//an arbitrary number for the cpu to decide when to hold.
-                                 //so, the computer will hold when 7 away from 21.
-    private int gameTarget = 21;
+    //So for 7, the computer will hold when 7 away from 21.
+
+    private static int gameTarget = 21; //The number stated in the requirements
+
 
     Scanner scan = new Scanner(System.in);
     InputCollector collector = new InputCollector();
@@ -20,6 +23,10 @@ class Game {
 
     //signifies the end of the game when triggered//
     private static boolean end =false;
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    //Constructor
+
     /**
      * Game object constructor
      */
@@ -32,6 +39,9 @@ class Game {
         dice1 = new Dice();
         dice2= new Dice();
     }
+
+    /////////////////////////////////////////////////////////////////////////////
+    //Methods
 
 
     public void play() {
@@ -104,11 +114,11 @@ class Game {
     /**
      * Responsible for checking limit conditions the it is the players turn.
      */
-    public static boolean victoryLimitCheck(int diceRunningTotal) {
+    private boolean victoryLimitCheck(int diceRunningTotalPlayer) {
 
-        if (diceRunningTotal > 21) {
-            System.out.println("The current total is above 21\n"+
-                                "Player 1 has lost! ");
+        if (diceRunningTotalPlayer > gameTarget) {
+            System.out.println("The current total is above 21\n" +
+                    "The current player has lost! ");
             System.exit(1); //if it is over, the game is over. Print related crap.
             return false;
         } else {
@@ -118,6 +128,32 @@ class Game {
     }
 
     /**
+     * Checks that if the running totals are equal, then the game is a draw.
+     */
+    private boolean draw(boolean runningTotalPlayer1, boolean runningTotalPlayer2) {
+        boolean humanPlayerHold = humanPlayer.getHold();
+        boolean computerPlayerHold = computerPlayer.getHold();
+
+
+        if (humanPlayerHold && computerPlayerHold == true) {
+
+        }
+        if (runningTotalPlayer1 == runningTotalPlayer2) {
+            System.out.println("The game is a draw");
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    ///
+    //other conditions
+
+
+
+
+    /**
      * The player has held, the computer must do something.
      * Once the player holds, the computer will continue to toll until it gets within a range
      * for holding. Once the computer holds, victory conditions are checked.
@@ -125,15 +161,12 @@ class Game {
      * 12 which is a the total for a two dice roll.
      */
     public void computerLogic() {
-
         //The dice are rolled
-
-
         //here, the human player has chosen to hold and the computer will loop through the game
         //until the end.
         while(humanPlayer.getHold()==true) {
-            int die1 = dice1.roll();
-            int die2 = dice2.roll();
+            int die1 = Dice.roll();
+            int die2 = Dice.roll();
 
             //The dice is rolled
             System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
@@ -165,20 +198,10 @@ class Game {
                     scan.nextLine();//pauses after game is completed
                 }
             } else {
-                //System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
-                //System.out.println ("Computer current total:\n"+computerDiceTotal);
                 //do nothing, continue
             }
-            //the computer will stop rolling when within a certain range to the limit//
-            //System.out.println("MOOOOOOOOOOO");
-            //infinite loop, break
-            //System.exit(1);
         }
         }
-
-
-
-
         }
 
 

@@ -1,7 +1,7 @@
 package nz.ac.eit.DiceGame;
 
 /**
- * Hello world!
+ *
  *
  */
 public class App 
