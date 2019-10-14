@@ -27,10 +27,32 @@ public class VictoryTest {
     }
 
     @Test
-    public void shouldRunningTotalsOfBothPlayersBeEqual_Draw() {
+    public void shouldRunningTotalsOfBothPlayersBeEqual_Draw_True() {
+        int humanNumber = humanPlayer.runningTotal(20);
+        int computerNumber = computerPlayer.runningTotal(20);
 
-
+        boolean draw = game.draw(true, true);
+        assertEquals("totals from both players are equal, it is a draw", true, draw);
     }
+
+    @Test
+    public void shouldRunningTotalsOfBothPlayersBeEqual_Draw_False() {
+        int humanNumber = humanPlayer.runningTotal(20);
+        int computerNumber = computerPlayer.runningTotal(19);
+
+        boolean aDraw = game.draw(true, true);
+        assertEquals("totals from both players are not equal, it is not draw", false, aDraw);
+    }
+
+    @Test
+    public void shouldRunningTotalsOfBothPlayersBeEqual_Draw_False2() {
+        int humanNumber = humanPlayer.runningTotal(19);
+        int computerNumber = computerPlayer.runningTotal(20);
+
+        boolean aDraw = game.draw(true, true);
+        assertEquals("totals from both players are not equal, it is not draw", false, aDraw);
+    }
+
 
     @Test
     public void shouldRunningTotalPlayer1Be15_True_gameContinues() {
