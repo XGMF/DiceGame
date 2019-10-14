@@ -8,9 +8,7 @@ public class Dice {
 
 
 	public static int roll() {
-		// TODO Auto-generated method stub
 		return 1 + (int)(Math.random() * 6);
-		
 	}
 	
 	

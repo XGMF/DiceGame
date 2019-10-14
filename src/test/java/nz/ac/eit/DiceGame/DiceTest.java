@@ -30,7 +30,7 @@ public class DiceTest {
         dice2 = new Dice();
     }
 
-    ///check for a sequence of numbers
+    ///check for a sequence of numbers??
     @Test
     public void shouldReturnTwoRandomNumbersEachTime() {
 
@@ -47,14 +47,14 @@ public class DiceTest {
 
     }
 
-
+    //check valid numbers on
     @Test
     public void should1ThrownShouldAccept() {
 
     }
 
     @Test
-    void should6ThrownShouldAccept() {
+    public void should6ThrownShouldAccept() {
 
     }
 

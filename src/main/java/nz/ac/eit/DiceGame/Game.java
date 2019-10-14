@@ -114,7 +114,7 @@ class Game {
     /**
      * Responsible for checking limit conditions the it is the players turn.
      */
-    private boolean victoryLimitCheck(int diceRunningTotalPlayer) {
+    public boolean victoryLimitCheck(int diceRunningTotalPlayer) {
 
         if (diceRunningTotalPlayer > gameTarget) {
             System.out.println("The current total is above 21\n" +
@@ -122,7 +122,7 @@ class Game {
             System.exit(1); //if it is over, the game is over. Print related crap.
             return false;
         } else {
-            System.out.println("Less Than 21");
+            System.out.println("Less than or equal to 21");
             return true;
         }
     }
@@ -130,7 +130,7 @@ class Game {
     /**
      * Checks that if the running totals are equal, then the game is a draw.
      */
-    private boolean draw(boolean runningTotalPlayer1, boolean runningTotalPlayer2) {
+    public boolean draw(boolean runningTotalPlayer1, boolean runningTotalPlayer2) {
         boolean humanPlayerHold = humanPlayer.getHold();
         boolean computerPlayerHold = computerPlayer.getHold();
 
