@@ -115,7 +115,7 @@ class Game {
      * Responsible for checking limit conditions the it is the players turn.
      */
     public boolean victoryLimitCheck(int diceRunningTotalPlayer) {
-
+        //game target is 21, as stated in the requirements.
         if (diceRunningTotalPlayer > gameTarget) {
             System.out.println("The current total is above 21\n" +
                     "The current player has lost! ");
@@ -136,7 +136,8 @@ class Game {
 
 
         if (humanPlayerHold && computerPlayerHold == true) {
-
+            //split the function to allow for testing, do not create a dependency
+            //Using a getter is a dependency......
         }
         if (runningTotalPlayer1 == runningTotalPlayer2) {
             System.out.println("The game is a draw");

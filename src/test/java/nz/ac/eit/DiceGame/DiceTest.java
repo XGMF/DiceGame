@@ -3,61 +3,32 @@ package nz.ac.eit.DiceGame;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertEquals;
 
-/**
- * Unsure on how to test
- */
 public class DiceTest {
 
-    /**
-     *Maybe test that the dice will not be less that one ot greater than six.
+    Dice dice;
 
-     public int dice()  {
-     Dice dice=new Dice();
-
-     }
-     */
-
-    private Dice dice1;
-    private Dice dice2;
-
-    //check for random dice.
-    //create dice ready to roll.
     @Before
     public void setup() {
-        dice1 = new Dice();
-        dice2 = new Dice();
+        dice = new Dice();
     }
 
-    ///check for a sequence of numbers??
-    @Test
-    public void shouldReturnTwoRandomNumbersEachTime() {
+    // @Test
+    // public void DiceNumber_returnsTypeInt_True() {
 
-    }
-
-    //check that a number cannot exist out of range
-    @Test
-    public void shouldThrowAnExceptionIfDiceIs0() {
-
-    }
+    //}
 
     @Test
-    public void shouldThrowAnExceptionIfDiceIs7() {
+    public void mustReturnBetween_1and6Inclusive() {
+
+        int number = Dice.roll();
+
+        for (int i = 0; i < 10000000; i++) {
+            assertEquals("The number is less than 7 and greater than 0 first ", number > 0 && number < 7, true);
+        }
 
     }
-
-    //check valid numbers on
-    @Test
-    public void should1ThrownShouldAccept() {
-
-    }
-
-    @Test
-    public void should6ThrownShouldAccept() {
-
-    }
-
 
 
 }
