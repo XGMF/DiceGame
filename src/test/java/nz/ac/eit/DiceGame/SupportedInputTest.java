@@ -21,10 +21,23 @@ public class SupportedInputTest {
     }
 
     @Test
+    public void collectString_shouldReturn_r_SupportedInput() throws StringNotValidInputException {
+        SupportedInput inputtedString = inputCollector.collectString("r");
+        assertEquals(SupportedInput.R, inputtedString);
+    }
+
+    @Test
+    public void collectString_shouldReturn_h_SupportedInput() throws StringNotValidInputException {
+        SupportedInput inputtedString = inputCollector.collectString("h");
+        assertEquals(SupportedInput.H, inputtedString);
+    }
+
+    @Test
     public void collectString_shouldReturn_R_SupportedInput() throws StringNotValidInputException {
         SupportedInput inputtedString = inputCollector.collectString("R");
         assertEquals(SupportedInput.R, inputtedString);
     }
+
 
     @Test
     public void collectString_shouldReturn_H_SupportedInput() throws StringNotValidInputException {

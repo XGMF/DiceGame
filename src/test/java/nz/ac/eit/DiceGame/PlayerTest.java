@@ -9,6 +9,7 @@ public class PlayerTest {
 
     private Player player;
 
+
     @Before
     public void setup() {
         player = new Player(1, "Human_Player");
@@ -30,8 +31,8 @@ public class PlayerTest {
     }
 
     //not throwing, but correct, should NOT be equal.
-    @Test(expected = IntegerSumNotValid.class)
-    public void sum_3and1_return6() throws IntegerSumNotValid {
-        assertEquals(player.sum(1, 1), 3);
-    }
+    //@Test(expected = IntegerSumNotValid.class)
+    //public void sum_3and1_return6() throws IntegerSumNotValid {
+    //    assertEquals(player.sum(1, 1), 3);
+    //}
 }

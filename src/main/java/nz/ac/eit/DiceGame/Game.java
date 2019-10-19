@@ -9,7 +9,7 @@ class Game {
     Player computerPlayer; //computer player
     Dice dice1, dice2; //two dice for the game
 
-    private int cpuHoldNumber =7;//an arbitrary number for the cpu to decide when to hold.
+    private int cpuHoldNumber = 7;//an arbitrary number for the cpu to decide when to hold.
     //So for 7, the computer will hold when 7 away from 21.
 
     private static int gameTarget = 21; //The number stated in the requirements
@@ -22,7 +22,7 @@ class Game {
     SupportedInput supportedInput = null;
 
     //signifies the end of the game when triggered//
-    private static boolean end =false;
+    private static boolean end = false;
 
     /////////////////////////////////////////////////////////////////////////////////////
     //Constructor
@@ -37,7 +37,7 @@ class Game {
 
         // instantiate dice object
         dice1 = new Dice();
-        dice2= new Dice();
+        dice2 = new Dice();
     }
 
     /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ class Game {
     public void play() {
 
         //while the game is not finished//
-        while (end!=true) {////////////////////////////////////////////////////////////////////
+        while (end != true) {////////////////////////////////////////////////////////////////////
 
             //////each dice is rolled and assigned to a variable
             int currentDice1 = Dice.roll();
@@ -63,7 +63,7 @@ class Game {
 
             //checks whether the total is over the ending condition
             //if it is STOP. is game under limit includes a condition for closing the app.
-            System.out.println(victoryLimitCheck(aRunningTotal)+"\n");
+            System.out.println(victoryLimitCheck(aRunningTotal) + "\n");
 
             //asking the player for input. Input collector and exception class is linked.
             System.out.println("Please Roll or Hold (R/H)");
@@ -87,7 +87,7 @@ class Game {
      * Checks if the player holds or rolls.
      * only checks one condition at the moment
      */
-    public void RollOrHold(String roll) {
+    public boolean RollOrHold(String roll) {
 
         //System.out.print(roll);
         //uses string buffer.
@@ -101,14 +101,16 @@ class Game {
              * Vice versa, if its the computers turn and holds
              * it is the players turn.
              */
+            return true;
         } else {
             System.out.print("The player has rolled the dice\n");
             /**
              * If the player rolls the dice nothing happens here.
              * Returns to the beginning of the loop
              */
+            return false;
         }
-        //return roll;
+
     }
 
     /**
@@ -120,43 +122,58 @@ class Game {
             System.out.println("The current total is above 21\n" +
                     "The current player has lost! ");
             System.exit(1); //if it is over, the game is over. Print related crap.
-            return false;
+            return true;
         } else {
             System.out.println("Less than or equal to 21");
-            return true;
+            return false;
         }
     }
 
     /**
      * Checks that if the running totals are equal, then the game is a draw.
      */
-    public boolean draw(boolean runningTotalPlayer1, boolean runningTotalPlayer2) {
-        boolean humanPlayerHold = humanPlayer.getHold();
-        boolean computerPlayerHold = computerPlayer.getHold();
+    public boolean drawPlayersHoldCheck(boolean holdPlayer1, boolean holdPlayer2) {
+        //boolean humanPlayerHold = humanPlayer.getHold();
+        //boolean computerPlayerHold = computerPlayer.getHold();
+        int runningTotalPlayer1 = humanPlayer.getRunningTotal();
+        int runningTotalPlayer2 = computerPlayer.getRunningTotal();
 
 
-        if (humanPlayerHold && computerPlayerHold == true) {
+        if (holdPlayer1 && holdPlayer2 == true) {
             //split the function to allow for testing, do not create a dependency
-            //Using a getter is a dependency......
+            //Using a getter is a dependency......\
+
+
+            drawRunningTotalCheck(runningTotalPlayer1, runningTotalPlayer2);
+            return true;
         }
-        if (runningTotalPlayer1 == runningTotalPlayer2) {
+        return false;
+        //if (runningTotalPlayer1 == runningTotalPlayer2) {
+        //    System.out.println("The game is a draw");
+        //    return true;
+        //} else {
+        //    return false;
+    }
+
+
+    ////refactored from draw
+    public boolean drawRunningTotalCheck(int runningTotal1, int runningTotal2) {
+
+        if (runningTotal1 == runningTotal2) {
             System.out.println("The game is a draw");
             return true;
         } else {
             return false;
+
         }
-
     }
-
     ///
     //other conditions
 
 
-
-
     /**
      * The player has held, the computer must do something.
-     * Once the player holds, the computer will continue to toll until it gets within a range
+     * Once the player holds, the computer will continue to roll until it gets within a range
      * for holding. Once the computer holds, victory conditions are checked.
      * It is possible for the computer to lose without holding as the range is smaller than
      * 12 which is a the total for a two dice roll.
@@ -165,12 +182,12 @@ class Game {
         //The dice are rolled
         //here, the human player has chosen to hold and the computer will loop through the game
         //until the end.
-        while(humanPlayer.getHold()==true) {
+        while (humanPlayer.getHold() == true) {
             int die1 = Dice.roll();
             int die2 = Dice.roll();
 
             //The dice is rolled
-            System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
+            System.out.println("The computer rolls :\n" + die1 + " : " + die2);
 
             //stuff is calculated
             int anotherSum = computerPlayer.sum(die1, die2);
@@ -178,7 +195,7 @@ class Game {
 
             //the victory condition is checked and displayed
             victoryLimitCheck(computerDiceTotal);
-            System.out.println(humanPlayer.getRunningTotal()+" "+computerDiceTotal);
+            System.out.println(humanPlayer.getRunningTotal() + " " + computerDiceTotal);
 
             //if the current total of computer is closer than a certain number
             if (gameTarget - computerDiceTotal < cpuHoldNumber) {
@@ -192,7 +209,8 @@ class Game {
                     System.out.print("Player 1 wins!");
                     scan.nextLine();//pauses after game is completed.
                 } else {
-
+                    drawRunningTotalCheck(humanDiceTotal, computerDiceTotal);
+                    /////////////////////////////////put in draw
                     //System.out.println ("The computer rolls :\n" +die1 + " : "+ die2);
                     //System.out.println ("Computer current total:\n"+computerDiceTotal);
                     System.out.println("The computer wins");
@@ -203,7 +221,7 @@ class Game {
             }
         }
         }
-        }
+}
 
 
 

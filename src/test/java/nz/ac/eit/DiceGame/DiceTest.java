@@ -24,7 +24,7 @@ public class DiceTest {
 
         int number = Dice.roll();
 
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 999999999; i++) {
             assertEquals("The number is less than 7 and greater than 0 first ", number > 0 && number < 7, true);
         }
 
