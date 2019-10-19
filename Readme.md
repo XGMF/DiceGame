@@ -16,12 +16,9 @@ These initial requirements are inadequate for complete coding of the requested g
 We asked the client for any requirements we were uncertain on. 
 
 REQ-8: The dice should return numbers through 1 to 6 inclusive.
-REQ-9: The random numbers are taken from the dice, which are rolled at the beginning of 	the game.
+REQ-2A: The random numbers are taken from the dice, which are rolled at the beginning of 	the game.
 REQ-10:The computer will hold when within range of the 21 number target. The range is 	decided by a common dice roll. Eg, 7.
 REQ-11:Should a player get 21 (which is the target), nothing should happen as it is NOT 	OVER the target.
 REQ-12:If both players get equal totals at the end of the game, the game is a draw.
 REQ-13: The game is ended as soon as a player goes over 21.
-REQ-14:Display end of game totals
-REQ-15:Announce who wins
-REQ-16:Pause the game at the end, as to prevent the console application from closing without response.
 

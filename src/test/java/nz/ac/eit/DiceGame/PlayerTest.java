@@ -30,6 +30,12 @@ public class PlayerTest {
         assertEquals(player.sum(2, 4), 6);
     }
 
+    @Test
+    public void sum_2and4_willNotReturn6() {
+        int number = 0;
+        assertEquals(player.sum(2, 4), number != 6);
+    }
+
     //not throwing, but correct, should NOT be equal.
     //@Test(expected = IntegerSumNotValid.class)
     //public void sum_3and1_return6() throws IntegerSumNotValid {

@@ -43,6 +43,16 @@ class Game {
     /////////////////////////////////////////////////////////////////////////////
     //Methods
 
+    public int diceRollOne() {
+        int aDice = Dice.roll();
+        return aDice;
+
+    }
+
+    public int diceRollTwo() {
+        int aDice = Dice.roll();
+        return aDice;
+    }
 
     public void play() {
 
@@ -50,8 +60,8 @@ class Game {
         while (end != true) {////////////////////////////////////////////////////////////////////
 
             //////each dice is rolled and assigned to a variable
-            int currentDice1 = Dice.roll();
-            int currentDice2 = Dice.roll();
+            int currentDice1 = diceRollOne();
+            int currentDice2 = diceRollTwo();
 
             //////both die are summed and a total is given
             int aSum = humanPlayer.sum(currentDice1, currentDice2);
@@ -83,6 +93,7 @@ class Game {
         }///////////////////////////////////////////////////////////////////////
     }
 
+
     /**
      * Checks if the player holds or rolls.
      * only checks one condition at the moment
@@ -95,6 +106,7 @@ class Game {
             System.out.print("The player has chosen to hold.\n " + "It is now the computers turn" + "\n");
             System.out.println("Hello");// currentPlayer);
             humanPlayer.setHold(true);
+
             computerLogic();
             /**
              * If the player holds, it is the computers turn.
@@ -120,7 +132,7 @@ class Game {
         //game target is 21, as stated in the requirements.
         if (diceRunningTotalPlayer > gameTarget) {
             System.out.println("The current total is above 21\n" +
-                    "The current player has lost! ");
+                    "Game Over! ");
             System.exit(1); //if it is over, the game is over. Print related crap.
             return true;
         } else {
@@ -148,11 +160,6 @@ class Game {
             return true;
         }
         return false;
-        //if (runningTotalPlayer1 == runningTotalPlayer2) {
-        //    System.out.println("The game is a draw");
-        //    return true;
-        //} else {
-        //    return false;
     }
 
 
@@ -161,6 +168,7 @@ class Game {
 
         if (runningTotal1 == runningTotal2) {
             System.out.println("The game is a draw");
+            System.exit(1); //exit the game
             return true;
         } else {
             return false;
@@ -174,7 +182,7 @@ class Game {
     /**
      * The player has held, the computer must do something.
      * Once the player holds, the computer will continue to roll until it gets within a range
-     * for holding. Once the computer holds, victory conditions are checked.
+     * for holding. One each loop the victory conditions are checked.
      * It is possible for the computer to lose without holding as the range is smaller than
      * 12 which is a the total for a two dice roll.
      */
@@ -183,11 +191,11 @@ class Game {
         //here, the human player has chosen to hold and the computer will loop through the game
         //until the end.
         while (humanPlayer.getHold() == true) {
-            int die1 = Dice.roll();
-            int die2 = Dice.roll();
+            int die1 = diceRollOne();
+            int die2 = diceRollTwo();
 
             //The dice is rolled
-            System.out.println("The computer rolls :\n" + die1 + " : " + die2);
+            System.out.println("The computer rolls :\n" + "Dice1: " + die1 + " Dice2: " + die2);
 
             //stuff is calculated
             int anotherSum = computerPlayer.sum(die1, die2);
@@ -195,7 +203,8 @@ class Game {
 
             //the victory condition is checked and displayed
             victoryLimitCheck(computerDiceTotal);
-            System.out.println(humanPlayer.getRunningTotal() + " " + computerDiceTotal);
+            System.out.println("Human Player Dice Total: " + humanPlayer.getRunningTotal() + "\n" +
+                    " " + "Computer Player Dice Total" + computerDiceTotal + "\n");
 
             //if the current total of computer is closer than a certain number
             if (gameTarget - computerDiceTotal < cpuHoldNumber) {
@@ -220,7 +229,7 @@ class Game {
                 //do nothing, continue
             }
         }
-        }
+    }
 }
 
 

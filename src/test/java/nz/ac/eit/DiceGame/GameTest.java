@@ -3,33 +3,23 @@ package nz.ac.eit.DiceGame;
 import org.junit.Before;
 import org.junit.Test;
 
+import static nz.ac.eit.DiceGame.SupportedInput.H;
 import static org.junit.Assert.*;
 
 public class GameTest {
 
     private Game game;
-    private Player player1, player2;
-    private Dice dice;
+    private Dice dice1;
+    private Dice dice2;
 
     @Before
     public void setup() {
 
         game = new Game();
-        dice = new Dice();
-        player1 = new Player(1, "human_player");
-        player2 = new Player(2, "computer_player");
-
+        dice1 = new Dice();
+        dice2 = new Dice();
         //inputCollector = new InputCollector();
     }
-
-    //rollOrHold()
-    //return true for hold
-
-
-    //@Test (expected = GeneralException.class)
-    //public void shouldThrowException() throws GeneralException {
-    //    game.RollOrHold("sas");
-    //}
 
     //  drawRunningTotalCheck()
     @Test
@@ -60,7 +50,7 @@ public class GameTest {
 
     // draw()
     @Test
-    public void draw_trueTrue_2020_true() {
+    public void draw_trueTrue_True() {
         assertEquals(game.drawPlayersHoldCheck(true, true), true);
     }
 
@@ -79,16 +69,6 @@ public class GameTest {
         assertEquals(game.drawPlayersHoldCheck(false, false), false);
     }
 
-    //@Test (expected = GeneralException.class)
-    //public void draw_falseTrue_true() throws GeneralException {
-    //    game.drawPlayersHoldCheck(false, true);
-    //}
-
-    //@Test (expected = GeneralException.class)
-    //public void draw_trueTalse_true() {
-    //    assertEquals(game.drawPlayersHoldCheck(true, false), false);
-    //}
-
     //victoryLimitCheck()
     @Test
     public void victoryLimitCheck_20_shouldReturn_False() {
@@ -105,10 +85,72 @@ public class GameTest {
         assertEquals(game.victoryLimitCheck(21), false);
     }
 
-    //@Test
-    //public void victoryLimitCheck_22_shouldReturn_False() {
-    //   assertEquals(game.victoryLimitCheck(22), false);
-    //}
+    @Test
+    public void diceRollOne_shouldReturn_Between1and6Inclusive_true() {
+        int number = Dice.roll();
+        assertEquals("The number is less than 7 and greater than 0 first ", number > 0 && number < 7, true);
+        System.out.println(number);
+    }
+
+    @Test
+    public void diceRollTwo_shouldReturn_Between1and6Inclusive_true() {
+        int number = Dice.roll();
+        assertEquals("The number is less than 7 and greater than 0 first ", number > 0 && number < 7, true);
+        System.out.println(number);
+    }
 
 
+    @Test
+    public void diceRollOne_shouldReturn_LessThan0_false() {
+        int number = Dice.roll();
+        assertEquals("damn code", number < 0, false);
+        System.out.println(number);
+    }
+
+    @Test
+    public void diceRollTwo_shouldReturn_above6_false() {
+        int number = Dice.roll();
+        assertEquals("damn code", number > 6, false);
+        System.out.println(number);
+    }
+
+    @Test
+    public void diceRollOne_shouldReturn_moreThan6_false() {
+        int number = Dice.roll();
+        assertEquals("damn code", number > 6, false);
+        System.out.println(number);
+    }
+
+    @Test
+    public void diceRollTwo_shouldReturn_lessThan0_false() {
+        int number = Dice.roll();
+        assertEquals("damn code", number < 0, false);
+        System.out.println(number);
+    }
+
+
+    // @Test
+    // public void rollOrHold (){
+    //    assertEquals(game.RollOrHold("H"),H);
 }
+    /*
+    @Test
+    public void victoryLimitCheck_22_shouldReturn_True() {
+        assertEquals(game.victoryLimitCheck(22), true);
+    }
+
+
+    ////////////////
+    @Test
+    public void victoryLimitCheck_23_shouldReturnTrue() {
+        assertEquals(game.victoryLimitCheck(23), true);
+    }
+
+    @Test
+    public void victoryLimitCheck_27_shouldReturn_True() {
+        assertEquals(game.victoryLimitCheck(27), true);
+    }
+*/
+
+
+
