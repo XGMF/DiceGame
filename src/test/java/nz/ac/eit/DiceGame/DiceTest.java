@@ -8,6 +8,11 @@ import static org.junit.Assert.*;
 public class DiceTest {
 
 
+    private Dice dice;
+
+    private void Setup() {
+        dice = new Dice();
+    }
 
     // @Test
     // public void DiceNumber_returnsTypeInt_True() {
